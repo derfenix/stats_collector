@@ -1,6 +1,6 @@
 # Statistic collector
 
-Collector stores incoming data within in-memory cache and flushed it into database every `$SYNC_INTERVAL`
+Collector stores incoming data within in-memory cache and flushes it into database every `$SYNC_INTERVAL`
 seconds (by default — each 15 seconds).
 
 Accepts only one message format:
