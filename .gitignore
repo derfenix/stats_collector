@@ -1,0 +1,20 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+.idea/httpRequests
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+/_vendor-*

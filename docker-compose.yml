@@ -1,0 +1,29 @@
+version: "3.3"
+volumes:
+   dbdata:
+
+
+services:
+   counter:
+      build:
+         dockerfile: Dockerfile
+         context: .
+      depends_on:
+         - db
+      ports:
+         - 8881:8881
+      environment:
+         DB_HOST: db
+         DB_USER: root
+         DB_PASS: stats
+         DB_NAME: stats
+         WS_PORT: 8881
+         WS_HOST: 0.0.0.0
+   db:
+      image: mysql:latest
+      environment:
+         MYSQL_DATABASE: stats
+         MYSQL_ROOT_PASSWORD: stats
+      volumes:
+         - dbdata:/var/lib/mysql
+
