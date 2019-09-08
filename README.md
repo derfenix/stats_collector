@@ -13,6 +13,12 @@ Each message will increase corresponding counter by 1.
 
 ### Start service manually
 
+Build the service binary:
+
+```bash
+go build -o collector ./cmd/collector/collector.go
+```
+
 Server can be configured via command line options or via environment variables (specified in 
 squared braces `[]`):
 
@@ -32,6 +38,12 @@ Application Options:
 
 Help Options:
   -h, --help        Show this help message
+```
+
+Example:
+
+```bash
+collector -i 60 --wsendpoint=/ws/stats/ --dbname=foobar
 ```
 
 ### Start service via Docker-compose
