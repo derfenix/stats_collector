@@ -56,4 +56,4 @@ cd stats_collector
 docker-compose up -d
 ```
 
-Websocket server will be available via `ws://127.0.0.1/ws/`. 
+Websocket server will be available via `ws://127.0.0.1:8881/ws/`. 
