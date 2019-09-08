@@ -1,5 +1,7 @@
 # Statistic collector
 
+Statistics collected via Websocket connection.
+
 Collector stores incoming data within in-memory cache and flushes it into database every `$SYNC_INTERVAL`
 seconds (by default — each 15 seconds).
 
