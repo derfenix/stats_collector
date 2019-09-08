@@ -56,7 +56,7 @@ func NewStorage(db *sql.DB) *Storage {
 	}
 }
 
-// prepareDB waits for database availability, create table if not exists and prepared query for writing stats into db
+// prepareDB waits for database availability, create table if not exists and prepares query for writing stats into db
 func prepareDB(db *sql.DB) *sql.Stmt {
 	log.Print("waiting for database")
 	for {
@@ -129,13 +129,13 @@ func (s *Storage) Syncer(ctx context.Context, wg *sync.WaitGroup, period time.Du
 			return
 		case <-ticker.C:
 			log.Print("flushing")
-			s.sync(ctx)
+			s.sync()
 		}
 	}
 }
 
 // sync flush each cache cell and sends values from them into `Storage.writeCh`
-func (s *Storage) sync(ctx context.Context) {
+func (s *Storage) sync() {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
