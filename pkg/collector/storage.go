@@ -18,8 +18,8 @@ const (
 	maxDbWriteRetries = 5
 )
 
-var (
-	// createTableSQL SQL code will be used for create table query
+const (
+	// createTableSQL SQL code will be used to create table
 	createTableSQL = `
 CREATE TABLE IF NOT EXISTS ` + tableName + `
 (
@@ -29,6 +29,9 @@ CREATE TABLE IF NOT EXISTS ` + tableName + `
 	PRIMARY KEY(id, label)
 )
 ENGINE MyISAM;`
+
+	// InsertOrUpdateStatsSQL SQL query for inserting or updating statistics data
+	InsertOrUpdateStatsSQL = "INSERT INTO " + tableName + "(id, label, counter) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE counter=counter+?"
 )
 
 // Storage is the main struct for storing statistics
@@ -69,6 +72,7 @@ func prepareDB(db *sql.DB) *sql.Stmt {
 			break
 		}
 	}
+
 	// Create table
 	_, err := db.Exec(createTableSQL)
 	if err != nil {
@@ -76,7 +80,7 @@ func prepareDB(db *sql.DB) *sql.Stmt {
 	}
 
 	// Prepare sql statement
-	stm, err := db.Prepare("INSERT INTO " + tableName + "(id, label, counter) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE counter=counter+?")
+	stm, err := db.Prepare(InsertOrUpdateStatsSQL)
 	if err != nil {
 		log.Fatalf("failed to prepare statement: %s", err.Error())
 	}
