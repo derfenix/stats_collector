@@ -14,6 +14,11 @@ type statsMessage struct {
 	Label string `json:"label"`
 }
 
+func (m *statsMessage) reset() {
+	m.ID = 0
+	m.Label = ""
+}
+
 // GetMessageHandler returns handler for incoming ws messages
 //
 // Unmarshal incoming message into `statsMessage` and call `Storage.Add` for received data
@@ -30,8 +35,7 @@ func GetMessageHandler(storage *Storage) func(*melody.Session, []byte) {
 		}
 		storage.Add(message.ID, message.Label, 1)
 
-		message.ID = 0
-		message.Label = ""
+		message.reset()
 		pool.Put(message)
 	}
 }
